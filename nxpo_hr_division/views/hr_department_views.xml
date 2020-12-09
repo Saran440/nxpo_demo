@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_department_form" model="ir.ui.view">
+        <field name="name">hr.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="replace">
+                <field name="division_parent_id" />
+            </field>
+            <!-- <xpath expr="/form/sheet/group" position="inside">
+                <field name="division_parent_id" />
+            </xpath> -->
+        </field>
+    </record>
+
+    <record id="view_department_tree" model="ir.ui.view">
+        <field name="name">hr.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="replace">
+                <field name="division_parent_id" />
+            </field>
+            <!-- <xpath expr="//tree" position="inside">
+                <field name="division_parent_id" />
+            </xpath> -->
+        </field>
+    </record>
+
+    <record id="view_department_filter" model="ir.ui.view">
+        <field name="name">hr.department.search</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="division_parent_id" string="Division" />
+                <filter
+                    name="division_parent_id"
+                    string="Division"
+                    domain="[('division_parent_id', '!=', False)]"
+                />
+                <group name="group_division" expand="1" string="Group By">
+                    <filter
+                        string="Division"
+                        name='division_parent_id'
+                        context="{'group_by':'division_parent_id'}"
+                    />
+                </group>
+            </xpath>
+         </field>
+    </record>
+</odoo>
