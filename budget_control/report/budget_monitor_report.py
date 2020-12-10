@@ -52,6 +52,10 @@ class BudgetMonitorReport(models.Model):
         return """
             from mis_budget_item mbi
             left outer join budget_control bc on mbi.budget_control_id = bc.id
+        """
+
+    def _where_budget(self):
+        return """
             where mbi.active = true and mbi.state = 'done'
         """
 
@@ -71,13 +75,19 @@ class BudgetMonitorReport(models.Model):
         return """
             from account_move_line aml
             left outer join account_move am on aml.move_id = am.id
+        """
+
+    def _where_actual(self):
+        return """
             where am.state = 'posted'
         """
 
     def _get_sql(self):
-        return "({} {}) union ({} {})".format(
+        return "({} {} {}) union ({} {} {})".format(
             self._select_budget(),
             self._from_budget(),
+            self._where_budget(),
             self._select_actual(),
             self._from_actual(),
+            self._where_actual(),
         )
