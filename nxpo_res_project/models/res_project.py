@@ -17,7 +17,7 @@ class ResProject(models.Model):
         states={"draft": [("readonly", False)]},
         tracking=True,
     )
-    parent_code = fields.Char(readonly=True)
+    parent_project = fields.Char(readonly=True)
     description = fields.Html(
         readonly=True, copy=False, states={"draft": [("readonly", False)]}
     )
@@ -80,8 +80,8 @@ class ResProject(models.Model):
 
     @api.model
     def create(self, vals):
-        if not vals.get("parent_code", False):
-            vals["parent_code"] = vals["name"]
+        if not vals.get("parent_project", False):
+            vals["parent_project"] = vals["name"]
         return super().create(vals)
 
     def copy(self, default=None):

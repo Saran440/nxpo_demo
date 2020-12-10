@@ -10,12 +10,12 @@ class BudgetMonitorReport(models.Model):
     project_id = fields.Many2one(
         comodel_name="res.project",
     )
-    parent_code = fields.Char(string="Parent Project")
+    parent_project = fields.Char(string="Parent Project")
 
     def _select_budget(self):
         select_budget_query = super()._select_budget()
         select_budget_query = ",".join([
-            select_budget_query, "aa.project_id, rp.parent_code"])
+            select_budget_query, "aa.project_id, rp.parent_project"])
         return select_budget_query
 
     def _from_budget(self):
@@ -30,7 +30,7 @@ class BudgetMonitorReport(models.Model):
     def _select_actual(self):
         select_actual_query = super()._select_actual()
         select_actual_query = ",".join([
-            select_actual_query, "aa.project_id, rp.parent_code"])
+            select_actual_query, "aa.project_id, rp.parent_project"])
         return select_actual_query
 
     def _from_actual(self):
