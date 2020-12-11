@@ -20,6 +20,7 @@ class MisBudgetItem(models.Model):
         [
             ("draft", "Draft"),
             ("done", "Controlled"),
+            ("cancel", "Cancelled")
         ],
         string="Status",
         compute="_compute_budget_control_state",

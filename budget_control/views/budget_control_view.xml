@@ -40,6 +40,7 @@
                     domain="[('assignee_id', '=', uid)]"
                 />
                 <separator />
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <group expand="0" string="Group By">
                     <filter
                         name="analytic"
@@ -71,11 +72,18 @@
                         states="draft"
                     />
                     <button
+                        id="action_cancel"
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        states="draft"
+                    />
+                    <button
                         id="action_draft"
                         name="action_draft"
                         string="Set to Draft"
                         type="object"
-                        states="done"
+                        states="done,cancel"
                     />
                     <field
                         name="state"
@@ -169,7 +177,6 @@
         <field name="view_id" ref="budget_control_view_tree" />
         <field name="res_model">budget.control</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{'active_test': False}</field>
     </record>
 
     <menuitem

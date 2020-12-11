@@ -31,7 +31,7 @@ class TestMisBudget(SavepointCase):
         cls.costcenter1 = Analytic.create({"name": "CostCenter1"})
         cls.budget_control = BudgetControl.create(
             {
-                "name": "CostCenter1/%s",
+                "name": "CostCenter1/%s" % cls.year,
                 "budget_id": cls.budget_period.mis_budget_id.id,
                 "analytic_account_id": cls.costcenter1.id,
                 "plan_date_range_type_id": cls.date_range_type.id,

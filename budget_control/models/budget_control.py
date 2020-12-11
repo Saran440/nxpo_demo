@@ -68,6 +68,7 @@ class BudgetControl(models.Model):
         [
             ("draft", "Draft"),
             ("done", "Controlled"),
+            ("cancel", "Cancelled")
         ],
         string="Status",
         readonly=True,
@@ -141,6 +142,9 @@ class BudgetControl(models.Model):
 
     def action_draft(self):
         self.write({"state": "draft"})
+
+    def action_cancel(self):
+        self.write({"state": "cancel"})
 
     def prepare_budget_control_matrix(self):
         KpiExpression = self.env["mis.report.kpi.expression"]
