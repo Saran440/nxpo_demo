@@ -1,6 +1,7 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import fields, models
+from odoo import _, fields, models
+from odoo.exceptions import UserError
 
 
 class PurchaseOrder(models.Model):
@@ -22,6 +23,14 @@ class PurchaseOrder(models.Model):
         """
         res = super()._write(vals)
         if vals.get("state") in ("purchase", "cancel", "draft"):
+            BudgetControl = self.env["budget.control"]
+            purchase_line = self.mapped("order_line")
+            analytic_account_ids = purchase_line.mapped("account_analytic_id")
+            budget_control = BudgetControl.search(
+                [("analytic_account_id", "in", analytic_account_ids.ids)]
+            )
+            if any(state != "done" for state in budget_control.mapped("state")):
+                raise UserError(_("Analytic Account is not Controlled"))
             for purchase_line in self.mapped("order_line"):
                 purchase_line.commit_budget()
         return res
