@@ -64,7 +64,7 @@ class BudgetMoveForward(models.Model):
         ("name_uniq", "UNIQUE(name)", "Name must be unique!"),
     ]
 
-    def _get_domain_search(self):
+    def _get_domain_search(self, model):
         domain_search = [("amount_commit", ">", 0.0), ("state", "!=", "cancel")]
         return domain_search
 
@@ -80,7 +80,7 @@ class BudgetMoveForward(models.Model):
                 Line.search(
                     [("forward_id", "=", rec.id), ("res_model", "=", model)]
                 ).unlink()
-                domain_search = self._get_domain_search()
+                domain_search = self._get_domain_search(model)
                 docs = self.env[model].search(domain_search)
                 Line.create(
                     [
