@@ -62,16 +62,20 @@ class PurchaseOrderLine(models.Model):
             # Uncommitted on invoice confirm
             purchase_line.invoice_lines.uncommit_purchase_budget()
 
+    def _get_po_line_account(self):
+        fpos = self.order_id.fiscal_position_id
+        account = self.product_id.product_tmpl_id.get_product_accounts(fpos)[
+            "expense"
+        ]
+        return account
+
     def commit_budget(self, product_qty=False, reverse=False, move_line_id=False):
         """Create budget commit for each purchase.order.line."""
         self.ensure_one()
         if self.state in ("purchase", "done"):
             if not product_qty:
                 product_qty = self.product_qty
-            fpos = self.order_id.fiscal_position_id
-            account = self.product_id.product_tmpl_id.get_product_accounts(fpos)[
-                "expense"
-            ]
+            account = self._get_po_line_account()
             analytic_account = self.account_analytic_id
             doc_date = self.order_id.date_order
             amount_currency = product_qty * self.price_unit

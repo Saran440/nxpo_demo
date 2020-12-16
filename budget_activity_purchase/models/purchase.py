@@ -11,3 +11,9 @@ class PurchaseOrderLine(models.Model):
         res = super()._prepare_account_move_line(move)
         res["activity_id"] = self.activity_id.id
         return res
+
+    def _get_po_line_account(self):
+        account = super()._get_po_line_account()
+        if self.activity_id:
+            account = self.activity_id.account_id
+        return account

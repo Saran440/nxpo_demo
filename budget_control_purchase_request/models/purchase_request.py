@@ -62,11 +62,15 @@ class PurchaseRequestLine(models.Model):
             # Uncommitted on purchase confirm
             pr_line.purchase_lines.uncommit_purchase_request_budget()
 
+    def _get_pr_line_account(self):
+        account = self.product_id.product_tmpl_id.get_product_accounts()["expense"]
+        return account
+
     def commit_budget(self, reverse=False, purchase_line_id=False):
         """Create budget commit for each purchase.request.line."""
         self.ensure_one()
         if self.request_id.state in ("to_approve", "done"):
-            account = self.product_id.product_tmpl_id.get_product_accounts()["expense"]
+            account = self._get_pr_line_account()
             analytic_account = self.analytic_account_id
             doc_date = self.request_id.date_start
             amount_currency = self.estimated_cost
