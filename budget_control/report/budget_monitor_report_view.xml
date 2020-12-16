@@ -53,6 +53,7 @@
             <search string="Budget Monitoring">
                 <field name="analytic_account_id" />
                 <filter name="used_analytic" string="Used Analytic" domain="[('analytic_account_id', '!=', False)]" />
+                <filter name="kpi_name" string="KPI" domain="[('kpi_name', '!=', False)]" />
                 <group expand="1" string="Group By">
                     <filter
                         string="Resource ID"
@@ -68,6 +69,11 @@
                         string="Reference"
                         name="reference"
                         context="{'group_by':'reference'}"
+                    />
+                    <filter
+                        string="KPI"
+                        name="kpi_name"
+                        context="{'group_by':'kpi_name'}"
                     />
                     <separator orientation="vertical" />
                     <filter string="Date" name="date" context="{'group_by':'date'}" />

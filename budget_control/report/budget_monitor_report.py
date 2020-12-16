@@ -31,6 +31,7 @@ class BudgetMonitorReport(models.Model):
     account_id = fields.Many2one(
         comodel_name="account.account",
     )
+    kpi_name = fields.Char()
 
     @property
     def _table_query(self):
@@ -40,6 +41,7 @@ class BudgetMonitorReport(models.Model):
         return """
             select 1000000000 + mbi.id as id,
                 'mis.budget.item,' || mbi.id as res_id,
+                mrk.description as kpi_name,
                 mbi.analytic_account_id,
                 mbi.date_from as date,  -- approx date
                 '1_budget' as amount_type,
@@ -52,6 +54,8 @@ class BudgetMonitorReport(models.Model):
         return """
             from mis_budget_item mbi
             left outer join budget_control bc on mbi.budget_control_id = bc.id
+            join mis_report_kpi_expression mrke on mbi.kpi_expression_id = mrke.id
+            join mis_report_kpi mrk on mrke.kpi_id = mrk.id
         """
 
     def _where_budget(self):
@@ -63,6 +67,7 @@ class BudgetMonitorReport(models.Model):
         return """
             select 8000000000 + aml.id as id,
             'account.move.line,' || aml.id as res_id,
+            null::char as kpi_name,
             aml.analytic_account_id,
             aml.date as date,
             '8_actual' as amount_type,
