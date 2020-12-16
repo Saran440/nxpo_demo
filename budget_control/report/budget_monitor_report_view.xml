@@ -64,6 +64,11 @@
                         name="analytic_account_id"
                         context="{'group_by':'analytic_account_id'}"
                     />
+                    <filter
+                        string="Reference"
+                        name="reference"
+                        context="{'group_by':'reference'}"
+                    />
                     <separator orientation="vertical" />
                     <filter string="Date" name="date" context="{'group_by':'date'}" />
                 </group>
