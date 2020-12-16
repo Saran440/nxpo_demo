@@ -9,7 +9,7 @@
             ref="budget_control.view_budget_monitor_report_search"
         />
         <field name="arch" type="xml">
-            <xpath expr="//search/group" position="inside">
+            <xpath expr="//separator[@orientation='vertical']" position="before">
                 <filter
                     string="Activity"
                     name="activity"
