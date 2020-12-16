@@ -40,14 +40,14 @@ class BudgetMonitorReport(models.Model):
     def _select_budget(self):
         return """
             select 1000000000 + mbi.id as id,
-                'mis.budget.item,' || mbi.id as res_id,
-                mrk.description as kpi_name,
-                mbi.analytic_account_id,
-                mbi.date_from as date,  -- approx date
-                '1_budget' as amount_type,
-                mbi.amount as amount,
-                null::integer as account_id,
-                bc.name as reference
+            'mis.budget.item,' || mbi.id as res_id,
+            mrk.description as kpi_name,
+            mbi.analytic_account_id,
+            mbi.date_from as date,  -- approx date
+            '1_budget' as amount_type,
+            mbi.amount as amount,
+            null::integer as account_id,
+            bc.name as reference
         """
 
     def _from_budget(self):

@@ -9,11 +9,11 @@
             ref="budget_control.view_budget_monitor_report_search"
         />
         <field name="arch" type="xml">
-            <xpath expr="//search/group" position="inside">
+            <xpath expr="//separator[@orientation='vertical']" position="before">
                 <filter
-                    string="Activity"
-                    name="activity"
-                    context="{'group_by':'activity_name'}"
+                    string="Operating Unit"
+                    name="operating_unit_id"
+                    context="{'group_by':'operating_unit_id'}"
                 />
             </xpath>
         </field>
