@@ -9,7 +9,7 @@
     "author": "Ecosoft, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-budgeting",
     "depends": [
-        "budget_control_monitoring_operating_unit",
+        "budget_monitoring_operating_unit",
         "purchase_request_operating_unit",
         "budget_control_purchase_request",
     ],
