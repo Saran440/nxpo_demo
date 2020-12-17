@@ -65,7 +65,7 @@ class BudgetMoveForward(models.Model):
     ]
 
     def _get_domain_search(self, model):
-        domain_search = [("amount_commit", ">", 0.0), ("state", "!=", "cancel")]
+        domain_search = [("amount_commit", ">", 0.0)]
         return domain_search
 
     def get_budget_move_forward(self):
