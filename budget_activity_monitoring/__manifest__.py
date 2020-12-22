@@ -3,7 +3,7 @@
 
 {
     "name": "Budget Activity Monitoring",
-    "summary": "Monitoring budget activity with Actual",
+    "summary": "Monitoring Budget with Activity",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "Ecosoft, Odoo Community Association (OCA)",

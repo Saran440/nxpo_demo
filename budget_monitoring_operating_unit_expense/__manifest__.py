@@ -2,18 +2,18 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Budget Monitoring Purchase Request Operating Unit",
-    "summary": "Monitoring budget with Purchase Request Operating Unit",
+    "name": "Budget Monitoring Operating Unit - Expense",
+    "summary": "Monitoring Operating Unit Budget with Expense",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "Ecosoft, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-budgeting",
     "depends": [
         "budget_monitoring_operating_unit",
-        "purchase_request_operating_unit",
-        "budget_control_purchase_request",
+        "hr_expense_operating_unit",
+        "budget_control_expense",
     ],
-    "data": [],
+    "auto_install": True,
     "maintainers": ["Saran440"],
     "development_status": "Alpha",
 }

@@ -26,7 +26,7 @@ class BudgetMonitorRevisionReport(models.Model):
     def _find_operating_unit(self):
         user_id = self.env["res.users"].browse(self._uid)
         if user_id.operating_unit_ids:
-            ou = "in {}".format(user_id.operating_unit_ids.ids)
+            ou = "in {}".format(tuple(user_id.operating_unit_ids.ids))
         else:
             ou = "= {}".format(user_id.default_operating_unit_id.id)
         return ou
@@ -58,35 +58,9 @@ class BudgetMonitorRevisionReport(models.Model):
             where mbi.state != 'draft' and bc.operating_unit_id {}
         """.format(operating_unit)
 
-    def _select_actual(self):
-        return """
-            select 8000000000 + aml.id as id,
-            aml.analytic_account_id,
-            aml.date as date,
-            '8_actual' as amount_type,
-            aml.credit-aml.debit as amount,
-            am.name as reference,
-            null::char as revision_number
-       """
-
-    def _from_actual(self):
-        return """
-            from account_move_line aml
-            left outer join account_move am on aml.move_id = am.id
-        """
-
-    def _where_actual(self):
-        operating_unit = self._find_operating_unit()
-        return """
-            where am.state = 'posted' and aml.operating_unit_id {}
-        """.format(operating_unit)
-
     def _get_sql(self):
-        return "({} {} {}) union ({} {} {})".format(
+        return "{} {} {}".format(
             self._select_budget(),
             self._from_budget(),
             self._where_budget(),
-            self._select_actual(),
-            self._from_actual(),
-            self._where_actual(),
         )
