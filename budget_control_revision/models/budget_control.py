@@ -13,6 +13,7 @@ class BudgetControl(models.Model):
     old_revision_ids = fields.One2many(
         comodel_name="budget.control",
     )
+    revision_number = fields.Integer(readonly=True)
 
     _sql_constraints = [
         (
