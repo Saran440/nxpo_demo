@@ -10,9 +10,10 @@
     "website": "https://github.com/OCA/account-budgeting",
     "depends": [
         "budget_control",
-        "budget_control_expense",
-        "budget_control_purchase_request",
-        "budget_control_purchase",
+        "budget_monitoring_operating_unit",
+        "budget_monitoring_purchase_operating_unit",
+        "budget_monitoring_purchase_request_operating_unit",
+        "budget_monitoring_expense_operating_unit",
     ],
     "data": [
         "report/budget_monitor_report_view.xml",

@@ -13,7 +13,7 @@ class BudgetMonitorReport(models.Model):
     def _select_budget(self):
         select_budget_query = super()._select_budget()
         select_budget_query = ",".join(
-            [select_budget_query, "null::integer as operating_unit_id"])
+            [select_budget_query, "bc.operating_unit_id"])
         return select_budget_query
 
     # Actual

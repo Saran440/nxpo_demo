@@ -10,6 +10,7 @@
     "website": "https://github.com/OCA/account-budgeting",
     "depends": [
         "budget_control",
+        "budget_control_operating_unit",
         "account_operating_unit",
     ],
     "data": [
