@@ -10,7 +10,11 @@
     "author": "Ecosoft, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-budgeting",
     "depends": ["base_revision", "budget_control"],
-    "data": ["views/budget_control_view.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/budget_control_view.xml",
+        "report/budget_monitor_revision_view.xml",
+    ],
     "installable": True,
     "maintainers": ["Saran440"],
     "development_status": "Alpha",
