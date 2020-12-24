@@ -11,8 +11,8 @@
                 <field name="date_from" />
                 <field name="date_to" />
                 <field name="budget_control_id" />
-                <field name="amount" />
-                <field name="spent" />
+                <field name="amount" sum="Total Amount" />
+                <field name="spent" sum="Spent" />
                 <field name="active" />
                 <field name="state" invisible="1" />
                 <field name="company_currency_id" invisible="1" />
