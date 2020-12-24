@@ -12,6 +12,12 @@ class MisBudgetItem(models.Model):
     def _compute_amount_readonly(self):
         today = fields.Date.context_today(self)
         for rec in self:
+            if (
+                len(self.budget_control_id) == 1
+                and self.budget_control_id.revision_number == 0
+            ):
+                self.is_readonly = False
+                break
             rec.is_readonly = (
                 (rec.date_from < today or today > rec.date_to) and True or False
             )
