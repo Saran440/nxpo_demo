@@ -145,6 +145,7 @@
                                     type="object"
                                     string="Reset Plan"
                                     icon="fa-refresh"
+                                    confirm="This operation cannot be undone. Are you sure to continue?"
                                 />
                             </div>
                             <field
