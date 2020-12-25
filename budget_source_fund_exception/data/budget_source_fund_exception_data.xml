@@ -5,7 +5,7 @@
         <field name="description">Sum amount of budget plan is not equal Sum amount of Funds</field>
         <field name="sequence">50</field>
         <field name="model">budget.control</field>
-        <field name="code">
+        <field name="code">if self.fund_ids:
             amount_plans = self._get_amount_plan()
             amount_funds = self._get_amount_fund()
             if amount_plans != amount_funds:
