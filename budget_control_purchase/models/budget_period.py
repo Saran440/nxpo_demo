@@ -17,7 +17,7 @@ class BudgetPeriod(models.Model):
         if self.purchase:
             Period = self.env["mis.report.instance.period"]
             model = self.env.ref(
-                "budget_control_purchase." "model_purchase_budget_move"
+                "budget_control_purchase.model_purchase_budget_move"
             )
             purchase = Period.create(
                 {
