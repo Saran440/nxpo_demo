@@ -23,7 +23,7 @@ Budget Control
     :target: https://runbot.odoo-community.org/runbot/88/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module is the main module from a set of budget control modules.
 This module alone will allow you to work in full cycle of budget control process.
@@ -167,7 +167,7 @@ Followings are sample steps to start with,
 
 1. Create new Budget Period
 
-    - Choose KPI template
+    - Choose KPI template (KPI should filter 'not_affect_budget' in KPI i.e., balp[510000]['|', ('move_id', '=', False), ('move_id.not_affect_budget', '=', False)])
     - Identify date range, i.e., 1 fiscal year
     - Plan Date Range, i.e., Quarter, the slot to fill allocation in budget control will split by quarter
     - Budget Control - On Account = True
@@ -253,7 +253,7 @@ promote its widespread use.
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-kittiu| 
+|maintainer-kittiu|
 
 This module is part of the `OCA/account-budgeting <https://github.com/OCA/account-budgeting/tree/14.0/budget_control>`_ project on GitHub.
 

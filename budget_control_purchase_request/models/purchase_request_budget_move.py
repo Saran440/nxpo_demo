@@ -31,3 +31,6 @@ class PurchaseRequestBudgetMove(models.Model):
         index=True,
         help="Uncommit budget from this purchase_line_id",
     )
+    move_id = fields.Many2one(
+        comodel_name="account.move",
+    )

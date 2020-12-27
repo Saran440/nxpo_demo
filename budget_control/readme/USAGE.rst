@@ -6,7 +6,7 @@ Followings are sample steps to start with,
 
 1. Create new Budget Period
 
-    - Choose KPI template
+    - Choose KPI template (KPI should filter 'not_affect_budget' in KPI i.e., balp[510000]['|', ('move_id', '=', False), ('move_id.not_affect_budget', '=', False)])
     - Identify date range, i.e., 1 fiscal year
     - Plan Date Range, i.e., Quarter, the slot to fill allocation in budget control will split by quarter
     - Budget Control - On Account = True
