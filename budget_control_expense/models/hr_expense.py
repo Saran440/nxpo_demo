@@ -4,47 +4,6 @@ from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
-class HRExpenseSheet(models.Model):
-    _inherit = "hr.expense.sheet"
-
-    budget_move_ids = fields.One2many(
-        comodel_name="expense.budget.move",
-        inverse_name="sheet_id",
-    )
-
-    def recompute_budget_move(self):
-        self.mapped("expense_line_ids").recompute_budget_move()
-
-    def _write(self, vals):
-        """
-        - UnCommit budget when state post
-        - Cancel/Draft document should delete all budget commitment
-        """
-        res = super()._write(vals)
-        if vals.get("state") in ("post", "cancel", "draft"):
-            BudgetControl = self.env["budget.control"]
-            expense_line = self.mapped("expense_line_ids")
-            analytic_account_ids = expense_line.mapped("analytic_account_id")
-            budget_control = BudgetControl.search(
-                [("analytic_account_id", "in", analytic_account_ids.ids)]
-            )
-            if any(state != "done" for state in budget_control.mapped("state")):
-                raise UserError(_("Analytic Account is not Controlled"))
-            if vals.get("state") == "post":
-                expense_line.uncommit_expense_budget()
-            else:
-                expense_line.commit_budget()
-        return res
-
-    def action_submit_sheet(self):
-        res = super().action_submit_sheet()
-        self.flush()
-        BudgetPeriod = self.env["budget.period"]
-        for doc in self:
-            BudgetPeriod.check_budget(doc.budget_move_ids, doc_type="expense")
-        return res
-
-
 class HRExpense(models.Model):
     _name = "hr.expense"
     _inherit = ["hr.expense", "budget.docline.mixin"]
@@ -74,6 +33,15 @@ class HRExpense(models.Model):
         self.commit_budget()
         self.uncommit_expense_budget()
 
+    def _budget_move_create(self, vals):
+        self.ensure_one()
+        budget_move = self.env["expense.budget.move"].create(vals)
+        return budget_move
+
+    def _budget_move_unlink(self):
+        self.ensure_one()
+        self.budget_move_ids.unlink()
+
     def commit_budget(self, reverse=False):
         """Create budget commit for each expense."""
         for expense in self:
@@ -98,17 +66,24 @@ class HRExpense(models.Model):
                         "analytic_tag_ids": [(6, 0, expense.analytic_tag_ids.ids)],
                     }
                 )
-                self.env["expense.budget.move"].create(vals)
-                if reverse:  # On reverse, make sure not over returned
+                expense._budget_move_create(vals)
+                if reverse and not expense._context.get(
+                    "force_check_reverse", False
+                ):  # On reverse, make sure not over returned
                     self.env["budget.period"].check_over_returned_budget(self.sheet_id)
             else:
-                expense.budget_move_ids.unlink()
+                expense._budget_move_unlink()
+
+    def _search_domain_expense(self):
+        domain = self.sheet_id.state in ("post", "done") and self.state in (
+            "approved",
+            "done",
+        )
+        return domain
 
     def uncommit_expense_budget(self):
         """For vendor bill in valid state, do uncommit for related expense."""
         for expense in self:
-            if expense.sheet_id.state in ("post", "done") and expense.state in (
-                "approved",
-                "done",
-            ):
+            domain = expense._search_domain_expense()
+            if domain:
                 expense.commit_budget(reverse=True)
