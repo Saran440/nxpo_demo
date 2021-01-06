@@ -10,3 +10,11 @@ class BudgetActivity(models.Model):
         comodel_name="budget.activity.group",
         index=True,
     )
+    account_id = fields.Many2one(
+        comodel_name="account.account",
+        # compute="_compute_account_id",
+        related="activity_group_id.account_id",
+        store=True,
+        readonly=False,
+        required=False,
+    )
