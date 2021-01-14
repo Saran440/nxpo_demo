@@ -11,7 +11,7 @@
     "depends": [
         "budget_activity_monitoring",
         "budget_control_purchase_request",
-        "budget_activity_purchase_request"
+        "budget_activity_purchase_request",
     ],
     "auto_install": True,
     "maintainers": ["Saran440"],

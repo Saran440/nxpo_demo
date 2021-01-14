@@ -17,10 +17,9 @@ class BudgetMoveForward(models.Model):
         """ Filter Purchase used analytic account"""
         domain_search = super()._get_domain_search(model)
         if model == "purchase.order.line":
-            domain_search.extend([
-                ("account_analytic_id", "!=", False),
-                ("state", "!=", "cancel")
-            ])
+            domain_search.extend(
+                [("account_analytic_id", "!=", False), ("state", "!=", "cancel")]
+            )
         return domain_search
 
 

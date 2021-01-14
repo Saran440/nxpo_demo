@@ -13,7 +13,10 @@
                 expr="//field['line_ids']/form//field['product_id']"
                 position="after"
             >
-                <field name="activity_id" attrs="{'readonly': [('is_editable','=', False)]}"/>
+                <field
+                    name="activity_id"
+                    attrs="{'readonly': [('is_editable','=', False)]}"
+                />
             </xpath>
         </field>
     </record>

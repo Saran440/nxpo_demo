@@ -39,7 +39,11 @@
                     domain="[('assignee_id', '=', uid)]"
                 />
                 <separator />
-                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
                 <group expand="0" string="Group By">
                     <filter
                         name="analytic"

@@ -11,14 +11,15 @@ class BudgetMonitorRevisionReport(models.Model):
 
     def _select_budget(self):
         select_budget_query = super()._select_budget()
-        select_budget_query = ",".join([
-            select_budget_query, "aa.department_id"])
+        select_budget_query = ",".join([select_budget_query, "aa.department_id"])
         return select_budget_query
 
     def _from_budget(self):
         from_budget_query = super()._from_budget()
-        from_budget_query = "\n".join([
-            from_budget_query,
-            "join account_analytic_account aa on bc.analytic_account_id = aa.id"
-        ])
+        from_budget_query = "\n".join(
+            [
+                from_budget_query,
+                "join account_analytic_account aa on bc.analytic_account_id = aa.id",
+            ]
+        )
         return from_budget_query

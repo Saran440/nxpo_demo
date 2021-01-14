@@ -56,7 +56,9 @@ class BudgetMonitorRevisionReport(models.Model):
         operating_unit = self._find_operating_unit()
         return """
             where mbi.state != 'draft' and bc.operating_unit_id {}
-        """.format(operating_unit)
+        """.format(
+            operating_unit
+        )
 
     def _get_sql(self):
         return "{} {} {}".format(

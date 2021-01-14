@@ -7,9 +7,9 @@ class BudgetControl(models.Model):
     _inherit = "budget.control"
 
     def _get_amount_plan(self):
-        amount_plan = sum(self.item_ids.mapped('amount'))
+        amount_plan = sum(self.item_ids.mapped("amount"))
         return amount_plan
 
     def _get_amount_fund(self):
-        amount_fund = sum(self.fund_line_ids.mapped('amount'))
+        amount_fund = sum(self.fund_line_ids.mapped("amount"))
         return amount_fund

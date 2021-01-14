@@ -65,11 +65,7 @@ class BudgetControl(models.Model):
         "initial budget equal to current budget commitment of its year.",
     )
     state = fields.Selection(
-        [
-            ("draft", "Draft"),
-            ("done", "Controlled"),
-            ("cancel", "Cancelled")
-        ],
+        [("draft", "Draft"), ("done", "Controlled"), ("cancel", "Cancelled")],
         string="Status",
         readonly=True,
         copy=False,

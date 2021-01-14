@@ -52,8 +52,16 @@
         <field name="arch" type="xml">
             <search string="Budget Monitoring">
                 <field name="analytic_account_id" />
-                <filter name="used_analytic" string="Used Analytic" domain="[('analytic_account_id', '!=', False)]" />
-                <filter name="kpi_name" string="KPI" domain="[('kpi_name', '!=', False)]" />
+                <filter
+                    name="used_analytic"
+                    string="Used Analytic"
+                    domain="[('analytic_account_id', '!=', False)]"
+                />
+                <filter
+                    name="kpi_name"
+                    string="KPI"
+                    domain="[('kpi_name', '!=', False)]"
+                />
                 <group expand="1" string="Group By">
                     <filter
                         string="Resource ID"

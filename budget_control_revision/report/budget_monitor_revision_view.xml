@@ -70,12 +70,17 @@
         </field>
     </record>
 
-    <record id="action_budget_monitor_revision_report_all" model="ir.actions.act_window">
+    <record
+        id="action_budget_monitor_revision_report_all"
+        model="ir.actions.act_window"
+    >
         <field name="name">Budget Revision Monitoring</field>
         <field name="res_model">budget.monitor.revision.report</field>
         <field name="view_mode">pivot</field>
         <field name="search_view_id" ref="view_budget_monitor_revision_report_search" />
-        <field name="context">{'search_default_group_by_analytic': 1, 'search_default_group_by_revision': 1}</field>
+        <field
+            name="context"
+        >{'search_default_group_by_analytic': 1, 'search_default_group_by_revision': 1}</field>
     </record>
 
     <menuitem
